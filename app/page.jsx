@@ -1,17 +1,17 @@
 'use client';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const { data: session, status } = useSession();
 
-  const containerVariants: Variants = {
+  const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
   };
 
-  const itemVariants: Variants = {
+  const itemVariants = {
     hidden: { y: 40, opacity: 0, filter: "blur(10px)" },
     visible: { 
       y: 0, 
