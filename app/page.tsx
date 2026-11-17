@@ -1,25 +1,33 @@
 'use client';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 export default function Home() {
   const { data: session, status } = useSession();
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 40, opacity: 0, filter: "blur(10px)" },
-    visible: { y: 0, opacity: 1, filter: "blur(0px)", transition: { type: "spring", stiffness: 100, damping: 20 } }
+    visible: { 
+      y: 0, 
+      opacity: 1, 
+      filter: "blur(0px)", 
+      transition: { 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 20 
+      } 
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#03050a] flex flex-col items-center justify-center p-6 relative overflow-hidden text-white perspective-1000 pt-24 pb-12">
       
-      {/* ব্যাকগ্রাউন্ড গ্লো */}
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -41,7 +49,6 @@ export default function Home() {
         initial="hidden"
         animate="visible"
       >
-        {/* ট্রাস্ট ব্যাজ */}
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-8 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md shadow-[0_0_20px_rgba(59,130,246,0.15)]">
           <span className="text-blue-400 text-lg">✨</span>
           <span className="text-sm font-bold text-blue-300">বাংলাদেশের সেরা টিউশন প্ল্যাটফর্ম</span>
@@ -73,7 +80,6 @@ export default function Home() {
 
         <div className="flex flex-col md:flex-row gap-8 justify-center items-center mb-16">
           
-          {/* Student Card */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ scale: 1.02, rotateY: 5, rotateX: -5 }}
@@ -91,7 +97,6 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* Teacher Card */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ scale: 1.02, rotateY: -5, rotateX: -5 }}
@@ -111,7 +116,6 @@ export default function Home() {
 
         </div>
 
-        {/* তোমার লেখা বড় সেকশন */}
         <motion.div variants={itemVariants} className="max-w-5xl mx-auto bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/10 rounded-[2.5rem] p-8 md:p-12 text-left relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-screen filter blur-[100px] opacity-20"></div>
           
@@ -153,7 +157,6 @@ export default function Home() {
 
           </div>
 
-          {/* নতুন যোগ করা How it works বাটন */}
           <div className="mt-10 text-center relative z-10 border-t border-white/10 pt-8">
             <p className="text-slate-400 mb-4">কীভাবে এই প্ল্যাটফর্মটি ব্যবহার করবেন তা জানতে চান?</p>
             <Link 
@@ -165,7 +168,6 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* মোটিভেশনাল বার্তা */}
         <motion.div variants={itemVariants} className="mt-16 text-center">
           <p className="text-lg md:text-xl text-blue-300 italic font-medium max-w-3xl mx-auto">
             "শিক্ষকরা জাতির মেরুদণ্ড। একজন ভালো শিক্ষক কখনোই একজন সাধারণ ছাত্রকে অসাধারণ উচ্চতায় পৌঁছে দিতে পারেন।"
