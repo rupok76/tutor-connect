@@ -6,26 +6,3 @@ body {
   background-color: #03050a;
   color: #ffffff;
 }
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #03050a; 
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b; 
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155; 
-}
-
-@keyframes slideInRight {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-.animate-slide-in-right {
-  animation: slideInRight 0.3s ease-out forwards;
-}
