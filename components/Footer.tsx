@@ -28,11 +28,15 @@ export default function Footer() {
 
         {/* সাপোর্ট ও আইনি */}
         <div>
-          <h3 className="text-white font-bold mb-4">সাপোর্ট</h3>
+          <h3 className="text-white font-bold mb-4">সাপোর্ট ও আইনি</h3>
           <ul className="space-y-3 text-sm">
             <li>
               <span className="text-slate-500 text-xs block mb-1">সাহায্যের জন্য:</span>
-              <a href="tutorconnectbd@gmail.com" className="text-blue-400 hover:text-blue-300 transition font-medium">support@tutorconnectbd.com</a>
+              <a href="mailto:tutorconnectbd@gmail.com" className="text-blue-400 hover:text-blue-300 transition font-medium">tutorconnectbd@gmail.com</a>
+            </li>
+            <li>
+              <span className="text-slate-500 text-xs block mb-1">কল করুন:</span>
+              <a href="tel:+8801341942117" className="text-green-400 hover:text-green-300 transition font-medium">+880 1341942117</a>
             </li>
             <li className="pt-2"><Link href="/terms" className="hover:text-white transition">শর্তাবলী (Terms & Conditions)</Link></li>
           </ul>

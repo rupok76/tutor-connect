@@ -2,9 +2,20 @@
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const { data: session, status } = useSession();
+  
+  // ইউজার কাউন্ট স্টেট
+  const [counts, setCounts] = useState({ students: 0, teachers: 0 });
+
+  useEffect(() => {
+    fetch('/api/user-count')
+      .then(res => res.json())
+      .then(data => setCounts(data))
+      .catch(err => console.log("Count Error:", err));
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -17,11 +28,7 @@ export default function Home() {
       y: 0, 
       opacity: 1, 
       filter: "blur(0px)", 
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
-        damping: 20 
-      } 
+      transition: { type: "spring", stiffness: 100, damping: 20 } 
     }
   };
 
@@ -93,10 +100,10 @@ export default function Home() {
             
             <div className="text-7xl mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300 text-center transform-gpu drop-shadow-2xl">👨‍🎓</div>
             <h2 className="text-3xl font-bold text-white mb-3 text-center">আমি ছাত্র/ছাত্রী</h2>
-            <p className="text-slate-400 text-center mb-8 flex-1 leading-relaxed">আমার প্রয়োজনীয় বিষয়ের সেরা শিক্ষক খুঁজে নিন, যিনি আমাকে সহজভাবে বুঝিয়ে দিতে পারবেন।</p>
+            <p className="text-slate-400 text-center mb-8 flex-1 leading-relaxed">আমার প্রয়োজনীয় বিষয়ের সেরা শিক্ষক খুঁজে দিন, যিনি আমাকে সহজভাবে বুঝিয়ে দিতে পারবেন।</p>
             
             <Link href="/signup/student" className="relative z-20 block w-full py-4 bg-green-500 text-[#03050a] rounded-2xl font-bold text-lg text-center shadow-[0_0_30px_rgba(34,197,94,0.3)] hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:scale-[1.02] transition-all duration-300">
-              স্টুডেন্ট সাইনআপ করুন
+              ফ্রি সাইনআপ করুন
             </Link>
           </motion.div>
 
@@ -111,7 +118,7 @@ export default function Home() {
             
             <div className="text-7xl mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300 text-center transform-gpu drop-shadow-2xl">👨‍🏫</div>
             <h2 className="text-3xl font-bold text-white mb-3 text-center">আমি শিক্ষক</h2>
-            <p className="text-slate-400 text-center mb-8 flex-1 leading-relaxed">আমি কোনো এজেন্সিকে কমিশন দিতে চাই না। আমি সরাসরি ছাত্র খুঁজতে চাই।</p>
+            <p className="text-slate-400 text-center mb-8 flex-1 leading-relaxed">আমি পড়াতে চাই।</p>
             
             <Link href="/signup/teacher" className="relative z-20 block w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg text-center shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] hover:scale-[1.02] transition-all duration-300">
               টিচার সাইনআপ করুন
@@ -171,12 +178,25 @@ export default function Home() {
               কীভাবে কাজ করে? (How it works) →
             </Link>
           </div>
+
+          {/* নতুন ইউজার কাউন্টার সেকশন - বক্সের ভেতরে নিচে */}
+          <div className="mt-10 pt-8 border-t border-white/10 flex justify-center gap-6 md:gap-12 relative z-10">
+            <div className="text-center">
+              <h3 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-500">{counts.students}+</h3>
+              <p className="text-sm text-slate-400 mt-2 font-medium">রেজিস্টার্ড স্টুডেন্ট</p>
+            </div>
+            <div className="text-center">
+              <h3 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">{counts.teachers}+</h3>
+              <p className="text-sm text-slate-400 mt-2 font-medium">রেজিস্টার্ড টিচার</p>
+            </div>
+          </div>
+
         </motion.div>
 
         {/* মোটিভেশনাল বার্তা */}
         <motion.div variants={itemVariants} className="mt-16 text-center">
           <p className="text-lg md:text-xl text-blue-300 italic font-medium max-w-3xl mx-auto">
-            "শিক্ষকরা জাতির মেরুদণ্ড। একজন ভালো শিক্ষক কখনোই একজন সাধারণ ছাত্রকে অসাধারণ উচ্চতায় পৌঁছে দিতে পারেন।"
+            "শিক্ষকরা জাতির মেরুদণ্ড। একজন ভালো শিক্ষকই পারেন একজন সাধারণ ছাত্রকে অসাধারণ উচ্চতায় পৌঁছে দিতে।"
           </p>
           <p className="text-sm text-slate-500 mt-3">- ড. এ. পি. জে. আব্দুল কালাম</p>
         </motion.div>

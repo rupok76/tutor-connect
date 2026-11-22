@@ -1,4 +1,5 @@
 'use client';
+import imageCompression from 'browser-image-compression';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
@@ -45,16 +46,25 @@ export default function StudentDashboard() {
     }
   }, [status, session, router]);
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setUploading(true);
       if (!e.target.files || e.target.files.length === 0) return;
 
-      const file = e.target.files[0];
-      const fileExt = file.name.split('.').pop();
+      const imageFile = e.target.files[0];
+
+      const options = {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      };
+
+      const compressedFile = await imageCompression(imageFile, options);
+
+      const fileExt = compressedFile.name.split('.').pop();
       const fileName = `${(session?.user as any)?.id}-${Math.random()}.${fileExt}`;
 
-      const { error: uploadError } = await supabaseClient.storage.from('profiles').upload(fileName, file);
+      const { error: uploadError } = await supabaseClient.storage.from('profiles').upload(fileName, compressedFile);
       if (uploadError) throw uploadError;
 
       const { data } = supabaseClient.storage.from('profiles').getPublicUrl(fileName);
@@ -67,10 +77,10 @@ export default function StudentDashboard() {
 
       if (!res.ok) throw new Error('সেভ করা যায়নি');
       setPhotoUrl(data.publicUrl);
-      alert('ছবি আপলোড হয়েছে!');
-    } catch (error: any) {
-      alert('সমস্যা হয়েছে: ' + error.message);
-    } finally {
+      alert('ছবি সফলভাবে আপলোড হয়েছে!');
+    }  catch (error: any) {
+  alert('সমস্যা হয়েছে: ' + error.message);
+} finally {
       setUploading(false);
     }
   };

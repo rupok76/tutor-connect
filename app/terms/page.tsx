@@ -64,7 +64,7 @@ export default function Terms() {
           </section>
 
           <p className="text-center pt-8 border-t border-white/10 text-slate-500">
-            এই শর্তাবলী সম্পর্কে কোনো প্রশ্ন থাকলে যোগাযোগ করুন: <a href="mailto:support@tutorconnectbd.com" className="text-blue-400 hover:underline">support@tutorconnectbd.com</a>
+            এই শর্তাবলী সম্পর্কে কোনো প্রশ্ন থাকলে যোগাযোগ করুন: <a href="mailto:tutorconnectbd@gmail.com" className="text-blue-400 hover:underline">tutorconnectbd@gmail.com</a>
           </p>
 
         </motion.div>
